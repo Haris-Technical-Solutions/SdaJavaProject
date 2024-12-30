@@ -18,7 +18,6 @@ import java.util.Properties;
 import org.example.bookstore.util.DB;
 import org.example.bookstore.util.Dictionary;
 import java.lang.reflect.Field;
-
 import java.lang.reflect.ParameterizedType;
 
 public abstract class Model<T> {
