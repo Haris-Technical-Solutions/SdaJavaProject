@@ -6,22 +6,19 @@ import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.View;
 import java.util.Scanner; 
-import org.example.bookstore.views.Login;
-import org.example.bookstore.views.Register;
-import org.example.bookstore.views.Customer;
 
 public class Index extends View {
     public Index() {
         // super();
         // while(true){
-            menu();
+            // menu();
             // if(nextInt() == 0){
             //     break;
             // }
         // }
         // menu();
     }
-    static void menu(){
+    public static int menu(){
         
         println("\n============= Welcome to the bookstore =============\n");
         println("1) Login");
@@ -29,29 +26,29 @@ public class Index extends View {
         println("0) Exit");
         println("Enter your choice: ");
         int choice = nextInt();
-
-        switch(choice){
-            case 1:
-                User user = Login.menu();
-                if(user != null){
-                    if(user.is_admin == 1){
-                        println("\n============= Welcome Admin =============\n");
-                    }else{
-                        println("\n============= Welcome Customer =============\n");
-                        new Customer(user);
-                    }
-                }
-                break;
-            case 2:
-                Register.menu();
-                menu();
-                break;
-            case 0:
-                break;
-            default:
-                println("Invalid choice");
-                menu();
-        }
+        return choice;
+        // switch(choice){
+        //     case 1:
+        //         User user = Login.menu();
+        //         if(user != null){
+        //             if(user.is_admin == 1){
+        //                 println("\n============= Welcome Admin =============\n");
+        //             }else{
+        //                 println("\n============= Welcome Customer =============\n");
+        //                 new Customer(user);
+        //             }
+        //         }
+        //         break;
+        //     case 2:
+        //         Register.menu();
+        //         menu();
+        //         break;
+        //     case 0:
+        //         break;
+        //     default:
+        //         println("Invalid choice");
+        //         menu();
+        // }
     }
 
     public static void boot(){

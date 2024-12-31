@@ -4,9 +4,14 @@ import org.example.bookstore.models.User;
 import org.example.bookstore.models.Subject;
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
+import org.example.bookstore.util.Controller;
 import org.example.bookstore.views.Index;
 
-public class HomeController {
+import org.example.bookstore.views.Login;
+import org.example.bookstore.views.Register;
+import org.example.bookstore.views.Customer;
+
+public class HomeController extends Controller{
 
     public HomeController() {
         // Subject subject  = new Subject();
@@ -28,7 +33,40 @@ public class HomeController {
         //     System.out.println("User deleted_at: " + u.deleted_at);
         // }
 
-        Index.boot();
+        int choice  = Index.menu();
+        switch(choice){
+            case 1:
+                User user = Login.menu();
+                if(user != null){
+                    if(user.is_admin == 1){
+                        println("\n============= Welcome Admin =============\n");
+                    }else{
+                        println("\n============= Welcome Customer =============\n");
+                        new Customer(user);
+                    }
+                }
+                break;
+            case 2:
+                while(true){
+                    Dictionary register = Register.menu();
+                    if(!AuthController.register(register)){
+                        println("User Already exists\n");
+                        if(!tryAgain()){
+                            break;
+                        }
+                    }else{
+                        break;
+                    }
+                }   
+                Index.menu();
+                break;
+            case 0:
+                break;
+            default:
+                println("Invalid choice");
+                Index.menu();
+        }
+        
     }
 
 

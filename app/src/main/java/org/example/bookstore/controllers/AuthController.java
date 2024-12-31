@@ -4,9 +4,10 @@ import org.example.bookstore.models.User;
 import org.example.bookstore.models.Subject;
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
+import org.example.bookstore.util.Controller;
 import org.example.bookstore.views.Index;
 
-public class AuthController {
+public class AuthController extends Controller {
 
     public AuthController() {
 

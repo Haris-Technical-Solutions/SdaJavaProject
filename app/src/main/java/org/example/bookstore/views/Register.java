@@ -13,7 +13,7 @@ public class Register extends View {
        
     }
 
-    public static void menu(){
+    public static Dictionary menu(){
         println("\n============= Register =============\n");
         println("Enter your name: ");
         String name = scanner.nextLine();
@@ -26,14 +26,9 @@ public class Register extends View {
         register.put("name", name);
         register.put("email", email);
         register.put("password", password);
+        return register;
 
-
-        if(!AuthController.register(register)){
-            println("User Already exists\n");
-            if(tryAgain()){
-                menu();
-            }
-        }
+        
         
 
     }
