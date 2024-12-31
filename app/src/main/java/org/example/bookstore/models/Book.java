@@ -23,7 +23,7 @@ public class Book extends Model<Book> {
         System.out.println("deleted_at: " + author);
     }
 
-    public getCategory(){
+    public void getCategory(){
 
     }
 

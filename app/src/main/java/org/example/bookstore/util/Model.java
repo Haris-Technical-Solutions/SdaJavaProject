@@ -19,6 +19,7 @@ import org.example.bookstore.util.DB;
 import org.example.bookstore.util.Dictionary;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.stream.Collectors;
 
 public abstract class Model<T> {
     private Connection connection;
@@ -117,7 +118,7 @@ public abstract class Model<T> {
 
     // Fetch an object by ID (assuming the table has an `id` column)
     public T findById(long id) {
-        where("id", String.valueOf(id), "=");
+        where("id", "=", String.valueOf(id));
         List<T> results = get();
         return results.isEmpty() ? null : results.get(0);
     }
@@ -179,6 +180,10 @@ public abstract class Model<T> {
     //     }
     //     return models;
     // }
+    public T first() {
+        return this.limit(1).get().stream().findFirst().orElse(null);
+    }
+
     public List<T> get() {
         List<T> models = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM ").append(table);
@@ -275,21 +280,61 @@ public abstract class Model<T> {
         return query.toString();
     }
 
-    public T create(Dictionary values) {
-        StringBuilder query = new StringBuilder("INSERT INTO ").append(table).append(" (");
+    // public T create(Dictionary values) {
+    //     StringBuilder query = new StringBuilder("INSERT INTO ").append(table).append(" (");
 
-        // Add column names to the query
-        String columnsStr = String.join(", ", values.keySet());
+    //     // Add column names to the query
+    //     String columnsStr = String.join(", ", values.keySet());
+    //     query.append(columnsStr).append(") VALUES (");
+
+    //     // Add placeholders for values
+    //     String placeholders = String.join(", ", Collections.nCopies(values.size(), "?"));
+    //     query.append(placeholders).append(")");
+
+    //     try (PreparedStatement statement = connection.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS)) {
+    //         // Set the values in the prepared statement
+    //         int index = 1;
+    //         for (Object value : values.values()) {
+    //             statement.setObject(index++, value);
+    //         }
+
+    //         // Execute the insert query
+    //         int rowsAffected = statement.executeUpdate();
+    //         if (rowsAffected > 0) {
+    //             // Retrieve the generated ID (if using auto-increment)
+    //             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+    //                 if (generatedKeys.next()) {
+    //                     long generatedId = generatedKeys.getLong(1);
+    //                     // Retrieve and return the created object using the generated ID
+    //                     return findById(generatedId);
+    //                 }
+    //             }
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
+    public T create(Dictionary values) {
+        StringBuilder query = new StringBuilder("INSERT INTO `").append(table).append("` (");
+
+        // Add column names with backticks
+        String columnsStr = String.join(", ", values.keySet().stream()
+            .map(key -> "`" + key + "`")
+            .collect(Collectors.toList()));
         query.append(columnsStr).append(") VALUES (");
 
         // Add placeholders for values
         String placeholders = String.join(", ", Collections.nCopies(values.size(), "?"));
         query.append(placeholders).append(")");
 
+        // System.out.println("Generated Query: " + query.toString()); // Debugging
+
         try (PreparedStatement statement = connection.prepareStatement(query.toString(), Statement.RETURN_GENERATED_KEYS)) {
             // Set the values in the prepared statement
             int index = 1;
             for (Object value : values.values()) {
+                // System.out.println("Setting value at index " + index + ": " + value); // Debugging
                 statement.setObject(index++, value);
             }
 
@@ -310,6 +355,7 @@ public abstract class Model<T> {
         }
         return null;
     }
+
     public T update(Dictionary values) {
         StringBuilder query = new StringBuilder("UPDATE ").append(table).append(" SET ");
 

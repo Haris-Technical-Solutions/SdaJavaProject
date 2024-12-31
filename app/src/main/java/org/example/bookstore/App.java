@@ -16,14 +16,19 @@ import java.util.Map;
 import org.example.bookstore.util.Model;
 import org.example.bookstore.util.DB;
 import org.example.bookstore.controllers.Home;
+import java.util.Scanner; 
 
 public class App {
+    // private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         // try {
 
             // DB db = new DB();
 
             // Create an instance of the DB class
+            // int choice = scanner.nextInt();
+
             Home home = new Home();
             
             // // Fetch data using the query builder

@@ -3,27 +3,27 @@ import java.math.BigInteger;
 
 import org.example.bookstore.util.Model;
 
-public class Book extends Model<Book> {
+public class Category extends Model<Book> {
     // static String table = "users";
 
     public BigInteger id;
-    public BigInteger category_id;
+    // public BigInteger category_id;
     public String name;
-    public String author;
+    // public String author;
     public String description;
-    public Integer price;
+    // public Integer price;
 
-    public Book() {
-        super.table("books");
+    public Category() {
+        super.table("categories");
     }
 
     public void display() {
         System.out.println("ID: " + id);
-        System.out.println("subject: " + name);
-        System.out.println("deleted_at: " + author);
+        System.out.println("name: " + name);
+        System.out.println("description: " + description);
     }
 
-    public getCategory(){
+    public void getCategory(){
 
     }
 
