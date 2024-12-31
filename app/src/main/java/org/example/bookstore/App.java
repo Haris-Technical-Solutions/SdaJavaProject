@@ -15,7 +15,7 @@ import java.util.Map;
 
 import org.example.bookstore.util.Model;
 import org.example.bookstore.util.DB;
-import org.example.bookstore.controllers.Home;
+import org.example.bookstore.controllers.HomeController;
 import java.util.Scanner; 
 
 public class App {
@@ -29,7 +29,7 @@ public class App {
             // Create an instance of the DB class
             // int choice = scanner.nextInt();
 
-            Home home = new Home();
+            HomeController home = new HomeController();
             
             // // Fetch data using the query builder
             // List<Map<String, Object>> results = db.table("users")

@@ -5,7 +5,7 @@ package org.example.bookstore.views;
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.View;
-import org.example.bookstore.controllers.Auth;
+import org.example.bookstore.controllers.AuthController;
 
 public class Register extends View {
 
@@ -28,7 +28,7 @@ public class Register extends View {
         register.put("password", password);
 
 
-        if(!Auth.register(register)){
+        if(!AuthController.register(register)){
             println("User Already exists\n");
             if(tryAgain()){
                 menu();

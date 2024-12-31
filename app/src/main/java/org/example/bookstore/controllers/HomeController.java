@@ -6,9 +6,9 @@ import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.views.Index;
 
-public class Home {
+public class HomeController {
 
-    public Home() {
+    public HomeController() {
         // Subject subject  = new Subject();
 
         // Dictionary dict = new Dictionary();

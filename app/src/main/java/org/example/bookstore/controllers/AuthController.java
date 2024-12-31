@@ -6,9 +6,9 @@ import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.views.Index;
 
-public class Auth {
+public class AuthController {
 
-    public Auth() {
+    public AuthController() {
 
     }
 
