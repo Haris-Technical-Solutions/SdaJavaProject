@@ -42,8 +42,9 @@ public class Index extends View {
     }
     public static int CustomerMenu(){
         println("\n============= Admin Menu =============\n");
-        println("1) Find Book Categories");
-        println("2) My Orders");
+        println("1) Explore Books");
+        println("2) My Cart");
+        println("3) My Orders");
         println("0) Logout & Exit");
         println("Enter your choice: ");
         int choice = nextInt();

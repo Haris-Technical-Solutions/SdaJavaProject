@@ -44,6 +44,10 @@ public class Book extends Model<Book> {
         println("ISBN => "+this.isbn);
         println("Description => "+this.description);
         println("Price => "+this.price);
+        Category category = new Category().where("id", "=",(String) this.category_id.toString()).first();
+        if(category != null){
+            println("Book Category => "+category.name);
+        }
     }
 
 }

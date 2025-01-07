@@ -54,8 +54,6 @@ public class BookController extends Controller {
                 if(book != null){
                     Dictionary payload = new Dictionary(book_edit);
                     payload.remove("id");
-                    // println(book_edit);
-                    // println(payload);
                     new Book().where("id", "=",(String) book_edit.get("id")).update(payload);
                     println("Book updated successfully");
                 }else{

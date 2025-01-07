@@ -8,10 +8,10 @@ import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.View;
 
-public class BookView extends View {
+public class CartView extends View {
 
     // User user;
-    // public BookView(User user) {
+    // public CartView(User user) {
     //     this.user = user;
     // }
 
@@ -90,28 +90,28 @@ public class BookView extends View {
         }
     }
     
-    public static Dictionary searchMenu(){
-        println("\n============= Explore Books =============\n");
-        Dictionary explore_book = new Dictionary();
+    // public static Dictionary searchMenu(){
+    //     println("\n============= Explore Books =============\n");
+    //     Dictionary explore_book = new Dictionary();
 
-        println("Search: ");
-        explore_book.put("search", scanner.nextLine());
-        return explore_book;
-    }
+    //     println("Search: ");
+    //     explore_book.put("id", scanner.nextLine());
+    //     return explore_book;
+    // }
     // public static boolean tryAgain(){
     //     println("Do you want to try again? (y/n)");
     //     String op = scanner.nextLine();
     //     return op.equals("y");
     // }
-    public static Integer searchMenu2(){
-        println("\n============= All above are Searched Books =============\n");
+    // public static Integer searchMenu2(){
+    //     println("\n============= All above are Searched Books =============\n");
 
-        println("1) Search Again");
-        println("2) Add Some Books to Cart");
-        println("0) Back");
-        Integer choice = scanner.nextInt();
-        return choice;
-    }
+    //     println("1) Search Again");
+    //     println("2) Add Some Books to Cart");
+    //     println("0) Back");
+    //     Integer choice = scanner.nextLine();
+    //     return choice;
+    // }
    
 
   
