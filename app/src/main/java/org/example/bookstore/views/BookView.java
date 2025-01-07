@@ -83,7 +83,7 @@ public class BookView extends View {
     }
     
     public static void listBooks(List<Book> books){
-        println("\n============= Book Categories List =============\n");
+        println("\n============= Books List =============\n");
         for (Book book : books) {
             // println(book.id+")\t"+category.name);
             book.displayInfo();
@@ -110,6 +110,7 @@ public class BookView extends View {
         println("2) Add Some Books to Cart");
         println("0) Back");
         Integer choice = scanner.nextInt();
+        scanner.nextLine();
         return choice;
     }
    

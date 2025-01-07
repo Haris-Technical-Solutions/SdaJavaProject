@@ -31,7 +31,8 @@ public abstract class Model<T> extends View {
     private String orWhereClause;
     private String limitClause;
     private String orderByClause;
-    
+    // private List<Object> parameters = new ArrayList<>();
+
     public Model() {
         Properties config = loadConfig();
         try {
@@ -82,6 +83,26 @@ public abstract class Model<T> extends View {
         }
         return this;
     }
+    // public Model<T> where(String column, String operator, String value) {
+    //     if (whereClause == null) {
+    //         whereClause = column + " " + operator + " ?";
+    //     } else {
+    //         whereClause += " AND " + column + " " + operator + " ?";
+    //     }
+    //     // parameters.add(value); // Add value to parameters list
+    //     return this;
+    // }
+
+    // public Model<T> orWhere(String column, String operator, String value) {
+    //     if (whereClause == null) {
+    //         whereClause = column + " " + operator + " ?";
+    //     } else {
+    //         whereClause += " OR " + column + " " + operator + " ?";
+    //     }
+    //     // parameters.add(value); // Add value to parameters list
+    //     return this;
+    // }
+
     // public Model<T> where(String column, String operator, Object value) {
     //     if (whereClause == null) {
     //         whereClause = column + " " + operator + " " + formatValue(value);
@@ -214,14 +235,16 @@ public abstract class Model<T> extends View {
 
     public List<T> get() {
         List<T> models = new ArrayList<>();
-        StringBuilder query = new StringBuilder("SELECT * FROM ").append(table);
+        // StringBuilder query = new StringBuilder("SELECT * FROM ").append(table);
 
         // Add WHERE clause if present
-        if (whereClause != null) {
-            query.append(" WHERE ").append(whereClause);
-        }
+        // if (whereClause != null) {
+        //     query.append(" WHERE ").append(whereClause);
+        // }
+        String query = buildQuery();
+        // System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
 
-        try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet rs = statement.executeQuery();
 
             // Dynamically resolve the class type of T
@@ -244,8 +267,12 @@ public abstract class Model<T> extends View {
                 models.add(model);
             }
         } catch (SQLException e) {
+            System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
+
             e.printStackTrace();
         } catch (Exception e) {
+            System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
+
             e.printStackTrace();
         }
 
@@ -424,6 +451,7 @@ public abstract class Model<T> extends View {
 
         // Build the SQL query
         StringBuilder query = new StringBuilder("UPDATE ").append(table).append(" SET ");
+        
         List<String> setClauses = new ArrayList<>();
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             setClauses.add(entry.getKey() + " = ?");

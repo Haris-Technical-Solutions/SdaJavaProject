@@ -66,14 +66,15 @@ public class CustomerController extends Controller {
         String search = (String) searchDict.get("search");
         List<Book> books = new Book()
         .join("categories", "categories.id", "=", "books.id")
-        .where("books.id", "=", search)
-        .orWhere("books.name", "=", "%"+search+"%")
+        .where("books.id", "LIKE", search)
+        .orWhere("books.name", "LIKE", "%"+search+"%")
         .get();
         
+        BookView.listBooks(books);
         Integer op = BookView.searchMenu2();
         switch(op){
             case 1:
-                BookView.searchMenu();
+                exploreBooks();
                 break;
             case 2:
                 break;
