@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 public class Dictionary extends HashMap<String, Object> {
 
+    public Dictionary() {
+        super();
+    }
+    public Dictionary(Dictionary original) {
+        super(original);
+    }
     // static Dicyionaru
     // Example: A method to safely get a value as a specific type
     public <T> T getAs(String key, Class<T> type) {

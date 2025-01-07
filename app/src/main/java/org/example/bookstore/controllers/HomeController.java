@@ -1,7 +1,7 @@
 package org.example.bookstore.controllers;
 
 import org.example.bookstore.models.User;
-import org.example.bookstore.models.Subject;
+
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.Controller;
@@ -15,7 +15,7 @@ public class HomeController extends Controller{
 
     public HomeController() {
         // Subject subject  = new Subject();
-
+                                                                                                                                                                                                                                                                                                             
         // Dictionary dict = new Dictionary();
         // dict.put("subject", "old 888");
         // Dictionary dict2 = new Dictionary();
@@ -33,18 +33,38 @@ public class HomeController extends Controller{
         //     System.out.println("User deleted_at: " + u.deleted_at);
         // }
 
-        int choice  = Index.menu();
+        switchAction(null);
+        
+    }
+
+    public static void switchAction(Integer choice){
+        if(choice == null){
+            choice  = Index.menu();
+        }
         switch(choice){
             case 1:
-                User user = Login.menu();
-                if(user != null){
-                    if(user.is_admin == 1){
-                        println("\n============= Welcome Admin =============\n");
-                    }else{
-                        println("\n============= Welcome Customer =============\n");
-                        new Customer(user);
+                while(true){
+                    Dictionary login = Login.menu();
+                    User user = AuthController.login(login);
+
+                    if(user == null){
+                        println("Invalid email or password");
+                        if(!tryAgain()){
+                            break;
+                        }
+                    }
+                    if(user != null){
+                        while(true){
+                            Integer op = Index.menuAfterLogin(user);
+                            if(user.is_admin == 1){
+                                AdminController.switchAction(op, user);
+                            }else{
+                                CustomerController.switchAction(op, user);
+                            }
+                        }
                     }
                 }
+                switchAction(null);
                 break;
             case 2:
                 while(true){
@@ -58,16 +78,16 @@ public class HomeController extends Controller{
                         break;
                     }
                 }   
-                Index.menu();
+                switchAction(null);
                 break;
             case 0:
                 break;
             default:
                 println("Invalid choice");
-                Index.menu();
+                switchAction(null);
         }
-        
     }
+
 
 
    

@@ -1,7 +1,7 @@
 package org.example.bookstore.controllers;
 
 import org.example.bookstore.models.User;
-import org.example.bookstore.models.Subject;
+
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.Controller;
@@ -13,6 +13,18 @@ public class AuthController extends Controller {
 
     }
 
+    public static User login(Dictionary login){
+        // String email = (String) login.get("email");
+        // String password = (String) login.get("password");
+        // User user = new User().where("email", "=", email).where("password", "=", password).first();
+        // if(user != null){
+        //     return true;
+        // }
+        // return false;
+
+        User user = new User().where("email", "=", (String) login.get("email")).where("password", "=", (String) login.get("password")).first();
+        return user;
+    }
     public static boolean register(Dictionary register){
         String email = (String) register.get("email");
         User user = new User().where("email", "=", email).first();

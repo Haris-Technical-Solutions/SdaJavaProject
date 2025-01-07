@@ -3,7 +3,7 @@ import java.math.BigInteger;
 
 import org.example.bookstore.util.Model;
 
-public class Category extends Model<Book> {
+public class Category extends Model<Category> {
     // static String table = "users";
 
     public BigInteger id;

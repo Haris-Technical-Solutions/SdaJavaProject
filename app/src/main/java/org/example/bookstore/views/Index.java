@@ -1,7 +1,6 @@
 package org.example.bookstore.views;
 
 import org.example.bookstore.models.User;
-import org.example.bookstore.models.Subject;
 import java.util.List;
 import org.example.bookstore.util.Dictionary;
 import org.example.bookstore.util.View;
@@ -9,14 +8,6 @@ import java.util.Scanner;
 
 public class Index extends View {
     public Index() {
-        // super();
-        // while(true){
-            // menu();
-            // if(nextInt() == 0){
-            //     break;
-            // }
-        // }
-        // menu();
     }
     public static int menu(){
         
@@ -27,28 +18,36 @@ public class Index extends View {
         println("Enter your choice: ");
         int choice = nextInt();
         return choice;
-        // switch(choice){
-        //     case 1:
-        //         User user = Login.menu();
-        //         if(user != null){
-        //             if(user.is_admin == 1){
-        //                 println("\n============= Welcome Admin =============\n");
-        //             }else{
-        //                 println("\n============= Welcome Customer =============\n");
-        //                 new Customer(user);
-        //             }
-        //         }
-        //         break;
-        //     case 2:
-        //         Register.menu();
-        //         menu();
-        //         break;
-        //     case 0:
-        //         break;
-        //     default:
-        //         println("Invalid choice");
-        //         menu();
-        // }
+    }
+    public static Integer menuAfterLogin(User user){
+        if(user.is_admin == 1){
+            Integer op = AdminMenu();
+            return op;
+        }else{      
+            Integer op = CustomerMenu();
+            return op;
+        }
+    }
+    
+    public static int AdminMenu(){
+        println("\n============= Admin Menu =============\n");
+        println("1) Manage Book Categories");
+        println("2) Manage Books");
+        println("3) Manage Orders");
+        println("4) Manage Customers");
+        println("0) Logout & Exit");
+        println("Enter your choice: ");
+        int choice = nextInt();
+        return choice;
+    }
+    public static int CustomerMenu(){
+        println("\n============= Admin Menu =============\n");
+        println("1) Find Book Categories");
+        println("2) My Orders");
+        println("0) Logout & Exit");
+        println("Enter your choice: ");
+        int choice = nextInt();
+        return choice;
     }
 
     public static void boot(){

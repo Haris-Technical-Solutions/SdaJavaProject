@@ -81,6 +81,33 @@ public abstract class Model<T> {
         }
         return this;
     }
+    // public Model<T> where(String column, String operator, Object value) {
+    //     if (whereClause == null) {
+    //         whereClause = column + " " + operator + " " + formatValue(value);
+    //     } else {
+    //         whereClause += " AND " + column + " " + operator + " " + formatValue(value);
+    //     }
+    //     return this;
+    // }
+
+    // public Model<T> orWhere(String column, String operator, Object value) {
+    //     if (orWhereClause == null) {
+    //         orWhereClause = column + " " + operator + " " + formatValue(value);
+    //     } else {
+    //         orWhereClause += " OR " + column + " " + operator + " " + formatValue(value);
+    //     }
+    //     return this;
+    // }
+
+    // private String formatValue(Object value) {
+    //     if (value instanceof String) {
+    //         return "'" + value + "'";
+    //     } else if (value instanceof Number) {
+    //         return value.toString();
+    //     } else {
+    //         throw new IllegalArgumentException("Unsupported data type for value: " + value.getClass().getName());
+    //     }
+    // }
 
     public Model<T> join(String table, String column1, String operator, String column2) {
         if (joins == null) {
@@ -351,14 +378,51 @@ public abstract class Model<T> {
                 }
             }
         } catch (SQLException e) {
+            System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
+
             e.printStackTrace();
         }
         return null;
     }
 
-    public T update(Dictionary values) {
-        StringBuilder query = new StringBuilder("UPDATE ").append(table).append(" SET ");
+    // public T update(Dictionary values) {
+    //     StringBuilder query = new StringBuilder("UPDATE ").append(table).append(" SET ");
 
+    //     List<String> setClauses = new ArrayList<>();
+    //     for (Map.Entry<String, Object> entry : values.entrySet()) {
+    //         setClauses.add(entry.getKey() + " = ?");
+    //     }
+    //     query.append(String.join(", ", setClauses));
+
+    //     if (whereClause != null) {
+    //         query.append(" WHERE ").append(whereClause);
+    //     }
+
+    //     try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
+    //         int index = 1;
+    //         for (Object value : values.values()) {
+    //             statement.setObject(index++, value);
+    //         }
+
+    //         int rowsAffected = statement.executeUpdate();
+    //         if (rowsAffected > 0) {
+    //             List<T> results = findByWhereClause(); // Fetch updated results
+    //             return results.isEmpty() ? null : results.get(0); // Return the first result or null if empty
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     return null;
+    // }
+
+    public T update(Dictionary values) {
+        if (values == null || values.isEmpty()) {
+            throw new IllegalArgumentException("Values to update cannot be null or empty.");
+        }
+
+        // Build the SQL query
+        StringBuilder query = new StringBuilder("UPDATE ").append(table).append(" SET ");
         List<String> setClauses = new ArrayList<>();
         for (Map.Entry<String, Object> entry : values.entrySet()) {
             setClauses.add(entry.getKey() + " = ?");
@@ -369,23 +433,40 @@ public abstract class Model<T> {
             query.append(" WHERE ").append(whereClause);
         }
 
+
         try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
             int index = 1;
-            for (Object value : values.values()) {
-                statement.setObject(index++, value);
+
+            // Bind the values to the query
+            for (Map.Entry<String, Object> entry : values.entrySet()) {
+                Object value = entry.getValue();
+                if (value == null) {
+                    // Pass null explicitly when the value is null
+                    statement.setNull(index++, java.sql.Types.NULL);
+                } else {
+                    // Pass the actual value
+                    statement.setObject(index++, value);
+                }
             }
 
+            // Execute the update query
             int rowsAffected = statement.executeUpdate();
+
+            // Return the updated entity if rows were affected
             if (rowsAffected > 0) {
                 List<T> results = findByWhereClause(); // Fetch updated results
                 return results.isEmpty() ? null : results.get(0); // Return the first result or null if empty
             }
         } catch (SQLException e) {
+            System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
+
             e.printStackTrace();
+
         }
 
-        return null;
+        return null; // Return null if the update failed
     }
+
 
 
 
@@ -425,6 +506,48 @@ public abstract class Model<T> {
         }
 
         return null; // Return null if no record is found or an error occurs
+    }
+    
+    public T delete() {
+        if (whereClause == null || whereClause.isEmpty()) {
+            throw new IllegalArgumentException("No condition specified for delete operation.");
+        }
+
+        // Build the SQL query for deletion
+        StringBuilder query = new StringBuilder("DELETE FROM ").append(table);
+
+        // Append the WHERE clause if it is defined
+        query.append(" WHERE ").append(whereClause);
+
+        try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
+            // Execute the delete query
+            int rowsAffected = statement.executeUpdate();
+
+            // Return null if no rows were affected
+            if (rowsAffected > 0) {
+                return null; // Return a success indication or null as no rows are needed to return
+            }
+        } catch (SQLException e) {
+            System.out.println("DEBUG: SQL Query -> " + query); // Log the SQL query for debugging
+            e.printStackTrace();
+        }
+
+        return null; // Return null if the delete failed
+    }
+
+
+
+
+    private boolean hasDeletedAtColumn() {
+        // Check if the 'deleted_at' column exists in the table schema (simplified approach)
+        String checkColumnQuery = "SHOW COLUMNS FROM " + table + " LIKE 'deleted_at'";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(checkColumnQuery)) {
+            return rs.next();  // If the column exists, this will return true
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

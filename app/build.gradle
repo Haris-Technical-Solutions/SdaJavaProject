@@ -15,11 +15,20 @@ dependencies {
 
 }
 
-run {
-   standardInput = System.in
-}
+// run {
+//    standardInput = System.in
+// }
 
 application {
     // Define the main class for the application.
     mainClass = 'org.example.bookstore.App'
+}
+
+// tasks.withType(JavaExec) {
+//     logging.captureStandardOutput LogLevel.LIFECYCLE
+//     logging.captureStandardError LogLevel.ERROR
+// }
+tasks.withType(JavaExec) {
+    standardInput = System.in
+    logging.captureStandardOutput LogLevel.QUIET
 }
