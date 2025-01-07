@@ -26,7 +26,7 @@ public class Customer extends View {
     public static void listCustomers(List<User> users){
         println("\n============= Customers List =============\n");
         for (User user : users) {
-            println(user.name+"\t"+user.email);
+            println(user.id+") "+user.name+"\t"+user.email);
         }
     }
 

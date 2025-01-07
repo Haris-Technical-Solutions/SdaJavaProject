@@ -28,9 +28,9 @@ public class CategoryView extends View {
     public static Dictionary addMenu(){
         println("\n============= Add Book Category =============\n");
         Dictionary category = new Dictionary();
-        println("Enter the name of the category: ");
+        println("Enter the name: ");
         category.put("name", scanner.nextLine());
-        println("Enter the Description of the category: ");
+        println("Enter the Description: ");
         category.put("description", scanner.nextLine());
         return category;
     }
@@ -39,11 +39,11 @@ public class CategoryView extends View {
         println("\n============= Edit Book Category =============\n");
         Dictionary category = new Dictionary();
 
-        println("Enter the Id of the category: ");
+        println("Enter the Id: ");
         category.put("id", scanner.nextLine());
-        println("Enter the Name of the category: ");
+        println("Enter the Name: ");
         category.put("name", scanner.nextLine());
-        println("Enter the Description of the category: ");
+        println("Enter the Description: ");
         category.put("description", scanner.nextLine());
 
         return category;
@@ -53,7 +53,7 @@ public class CategoryView extends View {
         println("\n============= Delete Book Category =============\n");
         Dictionary category = new Dictionary();
 
-        println("Enter the Id of the category: ");
+        println("Enter the Id: ");
         category.put("id", scanner.nextLine());
 
         return category;

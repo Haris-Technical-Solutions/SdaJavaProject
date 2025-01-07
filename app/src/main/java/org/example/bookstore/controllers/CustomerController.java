@@ -48,7 +48,7 @@ public class CustomerController extends Controller {
         }
     }
     public static void getCustomers(){
-        List<User> users = new User().get();
+        List<User> users = new User().where("is_admin", "=", "0").get();
         Customer.listCustomers(users);
     }
 }

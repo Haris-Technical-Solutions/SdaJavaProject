@@ -20,8 +20,9 @@ import org.example.bookstore.util.Dictionary;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.stream.Collectors;
+import org.example.bookstore.util.View;
 
-public abstract class Model<T> {
+public abstract class Model<T> extends View {
     private Connection connection;
     private String table;
     private List<String> columns;

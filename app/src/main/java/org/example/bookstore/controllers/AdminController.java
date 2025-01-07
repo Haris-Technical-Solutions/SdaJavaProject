@@ -26,6 +26,7 @@ public class AdminController extends Controller {
                 BookCategoryController.switchAction(null, user);
                 break;
             case 2:
+                BookController.switchAction(null, user);
                 break;
             case 3:
                 break;

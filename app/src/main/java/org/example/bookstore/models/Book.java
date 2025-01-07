@@ -1,5 +1,6 @@
 package org.example.bookstore.models;
 import java.math.BigInteger;
+import org.example.bookstore.util.View;
 
 import org.example.bookstore.util.Model;
 
@@ -10,6 +11,7 @@ public class Book extends Model<Book> {
     public BigInteger category_id;
     public String name;
     public String author;
+    public String isbn;
     public String description;
     public Integer price;
 
@@ -34,5 +36,14 @@ public class Book extends Model<Book> {
     //     this.updated_at = null;
     //     return this;
     // }
+
+    public void displayInfo(){
+        println("\n============ Book "+(this.id)+" ============");
+        println("Title => "+this.name);
+        println("Author => "+this.author);
+        println("ISBN => "+this.isbn);
+        println("Description => "+this.description);
+        println("Price => "+this.price);
+    }
 
 }
