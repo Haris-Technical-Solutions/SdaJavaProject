@@ -107,7 +107,7 @@ public class BookView extends View {
         println("\n============= All above are Searched Books =============\n");
 
         println("1) Search Again");
-        println("2) Add Some Books to Cart");
+        println("2) Add Any Searched Book to Cart");
         println("0) Back");
         Integer choice = scanner.nextInt();
         scanner.nextLine();
