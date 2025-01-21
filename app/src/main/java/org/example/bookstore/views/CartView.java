@@ -22,6 +22,7 @@ public class CartView extends View {
         println("2) Place Order");
         println("3) Empty Cart");
         println("0) Back");
+        println("Enter your choice: ");
         int choice = nextInt();
         return choice;
     }

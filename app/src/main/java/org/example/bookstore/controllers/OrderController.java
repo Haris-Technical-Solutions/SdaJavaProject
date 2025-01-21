@@ -115,6 +115,71 @@ public class OrderController extends Controller {
     }
 
 
+    public static void OrderMenu(){
+        // getOrders();
+
+        Integer op = OrderView.menu();
+        List<Order> orders;
+        Dictionary status;
+        switch(op){
+            case 1:
+                status = OrderView.changeOrderStatus();
+
+                Order order = new Order().where("id", "=",(String) status.get("order_id")).first();
+                if(order != null){
+                    String order_id = (String) status.get("order_id");
+                    status.remove("order_id");
+                    new Order().where("id", "=", order_id).update(status);
+                    println("Order Status Updated Successfully!");
+                }else{
+                    println("Order Not Found!");
+                }
+                OrderMenu();
+                break;
+            case 2:
+                status = new Dictionary();
+                status.put("status", "delivered");
+                new Order()
+                // .where("status", "=", "shipped")
+                .update(status);
+                println("All Orders Status Updated Successfully!");
+                OrderMenu();
+                break;
+                
+            case 3:
+                orders = new Order().where("status", "=", "pending").get();
+                OrderView.listOrders(orders);
+                OrderMenu();
+                break;
+            case 4:
+                orders = new Order().where("status", "=", "shipped").get();
+                OrderView.listOrders(orders);
+                OrderMenu();
+                break;
+            case 5:
+                orders = new Order().where("status", "=", "delivered").get();
+                OrderView.listOrders(orders);
+                OrderMenu();
+                break;
+            case 0:
+
+                break;
+            default:
+                OrderMenu();
+
+
+        }
+
+
+
+    }
+
+    public static void getOrders(){
+        List<Order> orders = new Order().get();
+        OrderView.listOrders(orders);
+    }
+
+
     // public static void getCustomers(){
     //     List<User> users = new User().where("is_admin", "=", "0").get();
     //     Customer.listCustomers(users);

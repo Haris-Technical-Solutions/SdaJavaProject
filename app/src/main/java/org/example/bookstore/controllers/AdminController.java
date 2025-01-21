@@ -29,6 +29,8 @@ public class AdminController extends Controller {
                 BookController.switchAction(null, user);
                 break;
             case 3:
+                OrderController.OrderMenu();
+
                 break;
             case 4:
                 CustomerController.switchActionFromAdmin(null, user);

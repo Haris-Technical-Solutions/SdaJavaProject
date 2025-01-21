@@ -19,6 +19,7 @@ public class OrderView extends View {
         println("2) Credit Card");
         println("3) JazzCash");
         println("4) EasyPaisa");
+        println("Enter your choice: ");
 
         Integer op = nextInt();
         return op;
@@ -28,6 +29,7 @@ public class OrderView extends View {
         // order.put("payment_type", scanner.nextLine());
         // return order;
     }
+
     public static void listOrders(List<Order> orders){
         println("\n============= Orders List =============\n");
         for (Order order : orders) {
@@ -39,14 +41,43 @@ public class OrderView extends View {
     //     this.user = user;
     // }
 
-    // public static Integer menu(){
-    //     println("\n============= My Cart =============\n");
-    //     println("1) Remove Book from Cart");
-    //     println("2) Place Order");
-    //     println("0) Back");
-    //     int choice = nextInt();
-    //     return choice;
-    // }
+    public static Integer menu(){
+        println("\n============= Orders =============\n");
+        println("1) Change Order Status");
+        println("2) Marke all pending or shipped orders as delivered");
+        println("3) List Pending Orders");
+        println("4) List Shipped Orders");
+        println("5) List Delivered Orders");
+        println("0) Back");
+        println("Enter your choice: ");
+
+
+        int choice = nextInt();
+        return choice;
+    }
+
+    public static Dictionary changeOrderStatus(){
+        Dictionary status = new Dictionary();
+
+        println("\n============= Change Order Status =============\n");
+        println("Enter the Order ID: ");
+        // Integer order_id = nextInt();
+        status.put("order_id", scanner.nextLine());
+        do{
+            println("1) Pending");
+            println("2) Shipped");
+            println("3) Delivered");
+            println("Enter the Status: ");
+            // Integer status = nextInt();
+            status.put("status", scanner.nextLine());
+
+        }while(Integer.parseInt((String) status.get("status")) < 1 || Integer.parseInt((String) status.get("status")) > 3);
+        return status;
+
+        // Order order = new Order().where("id", "=", order_id.toString()).first();
+        // order.status = status;
+        // order.save();
+    }
 
     // public static Dictionary addMenu(){
     //     println("\n============= Add Book To Cart =============\n");
@@ -117,6 +148,7 @@ public class OrderView extends View {
     //     println("1) Search Again");
     //     println("2) Add Some Books to Cart");
     //     println("0) Back");
+
     //     Integer choice = scanner.nextLine();
     //     return choice;
     // }

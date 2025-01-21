@@ -21,6 +21,7 @@ public class CategoryView extends View {
         println("3) Edit Book Category");
         println("4) Delete Book Category");
         println("0) Back");
+        println("Enter your choice: ");
         int choice = nextInt();
         return choice;
     }

@@ -17,6 +17,7 @@ public class Customer extends View {
         println("\n============= Manage Customer =============\n");
         println("1) List all Customers");
         println("0) Back");
+        println("Enter your choice: ");
         int choice = nextInt();
         return choice;
     }

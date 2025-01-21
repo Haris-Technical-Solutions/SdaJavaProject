@@ -22,6 +22,7 @@ public class BookView extends View {
         println("3) Edit Books");
         println("4) Delete Books");
         println("0) Back");
+        println("Enter your choice: ");
         int choice = nextInt();
         return choice;
     }
@@ -109,6 +110,7 @@ public class BookView extends View {
         println("1) Search Again");
         println("2) Add Any Searched Book to Cart");
         println("0) Back");
+        println("Enter your choice: ");
         Integer choice = scanner.nextInt();
         scanner.nextLine();
         return choice;
